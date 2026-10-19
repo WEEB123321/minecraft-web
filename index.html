@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方块世界 · 网页版《我的世界》整合站（Eaglercraft · 无需下载 · 内置联机）</title>
+<meta name="description" content="真正的《我的世界》网页版：原版 Eaglercraft 客户端本地托管，无需下载安装，打开即玩，内置局域网分享码联机与服务器联机。支持 1.8.8 / 1.12.2 / 1.5.2 / Beta 1.3。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%235fae3c'/><rect y='10' width='16' height='6' fill='%238a6544'/></svg>">
+<link rel="stylesheet" href="assets/css/portal.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="./">
+      <span class="logo-cube" aria-hidden="true"><i></i><i></i><i></i></span>
+      方块世界<em>WebMC</em>
+    </a>
+    <nav class="nav">
+      <a href="#versions">游戏版本</a>
+      <a href="#multiplayer">联机教程</a>
+      <a href="#features">游戏特色</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <a class="btn btn-primary btn-header" href="#versions">立即游玩</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="hero-kicker">免费 · 无广告 · 无需下载 · 无需注册</p>
+      <h1>在浏览器里玩<br>真正的<span>《我的世界》</span></h1>
+      <ul class="hero-tags">
+        <li>🧱 原版 Eaglercraft 客户端</li>
+        <li>⚡ JavaScript / WASM 双版本</li>
+        <li>👥 内置局域网 · 分享码联机</li>
+        <li>💾 存档保存在浏览器本地</li>
+        <li>🌍 1.8.8 · 1.12.2 · 1.5.2 · Beta 1.3</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-xl" href="#versions">选择版本开始</a>
+        <a class="btn btn-ghost btn-xl" href="#multiplayer">联机教程</a>
+      </div>
+      <p class="hero-note">客户端文件已托管在本站本地服务器上；首次打开需加载 16–83 MB（视版本而定），加载完成后浏览器会缓存。</p>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="mc-cube">
+        <div class="face top"></div>
+        <div class="face left"></div>
+        <div class="face right"></div>
+      </div>
+      <div class="float-blocks">
+        <span class="fb fb1"></span><span class="fb fb2"></span><span class="fb fb3"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap band-grid">
+    <div class="band-item"><b>🎮</b><h3>真·原版客户端</h3><p>直接运行 Eaglercraft 官方构建，原版玩法与材质。</p></div>
+    <div class="band-item"><b>⬇️</b><h3>无需下载安装</h3><p>打开网页即玩，不用装启动器，不注册账号。</p></div>
+    <div class="band-item"><b>👥</b><h3>内置联机</h3><p>局域网分享码联机 + WebSocket 服务器联机。</p></div>
+    <div class="band-item"><b>💾</b><h3>存档本地保存</h3><p>世界存在浏览器里，不上传任何数据到外部。</p></div>
+  </div>
+</section>
+
+<section id="versions" class="section">
+  <div class="wrap">
+    <h2 class="section-title">选择一个版本开始</h2>
+    <p class="section-sub">全部为 Eaglercraft 原版构建（本地托管），推荐直接从 1.8.8 开始</p>
+
+    <div class="ver-group">
+      <h3>正式版</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="card-tags"><span class="tag rec">推荐</span><span class="tag hot">最热门</span></div>
+          <h3>EaglercraftX 1.8.8 <em>JavaScript</em></h3>
+          <dl class="card-spec">
+            <div><dt>版本</dt><dd>EaglercraftX u50 国际版</dd></div>
+            <div><dt>大小</dt><dd>约 34.8 MB</dd></div>
+            <div><dt>联机</dt><dd>局域网 · 服务器</dd></div>
+            <div><dt>兼容</dt><dd>全部现代浏览器</dd></div>
+          </dl>
+          <p class="card-desc">社区使用最广的 1.8.8 版本：PvP 手感与服务器生态最好，玩法内容完整，第一次打开约 5–10 秒进入主菜单。</p>
+          <a class="btn btn-primary" href="mc/1.8.8/" target="_blank" rel="noopener">开始游戏</a>
+        </article>
+
+        <article class="card">
+          <div class="card-tags"><span class="tag wasm">高性能</span></div>
+          <h3>EaglercraftX 1.8.8 <em>WASM-GC</em></h3>
+          <dl class="card-spec">
+            <div><dt>版本</dt><dd>EaglercraftX u50 国际版</dd></div>
+            <div><dt>大小</dt><dd>约 15.7 MB</dd></div>
+            <div><dt>技术</dt><dd>WebAssembly GC</dd></div>
+            <div><dt>要求</dt><dd>Chrome / Edge 119+</dd></div>
+          </dl>
+          <p class="card-desc">同样是 1.8.8，但用 WebAssembly 重新编译：加载更快、帧率更高、更省电，适合较新的浏览器。</p>
+          <a class="btn btn-primary" href="mc/1.8.8-wasm/" target="_blank" rel="noopener">开始游戏</a>
+        </article>
+
+        <article class="card">
+          <div class="card-tags"><span class="tag">新版本</span></div>
+          <h3>Eaglercraft 1.12.2 <em>WASM-GC</em></h3>
+          <dl class="card-spec">
+            <div><dt>版本</dt><dd>1.12.2（2026-04-01 构建）</dd></div>
+            <div><dt>大小</dt><dd>约 25 MB</dd></div>
+            <div><dt>技术</dt><dd>WebAssembly GC</dd></div>
+            <div><dt>要求</dt><dd>Chrome / Edge 119+</dd></div>
+          </dl>
+          <p class="card-desc">更新一代的方块体系与合成系统（命令方块控的乐园），运行在现代浏览器上流畅度极佳。</p>
+          <a class="btn btn-primary" href="mc/1.12.2/" target="_blank" rel="noopener">开始游戏</a>
+        </article>
+
+        <article class="card">
+          <div class="card-tags"><span class="tag">兼容版</span></div>
+          <h3>Eaglercraft 1.12.2 <em>JavaScript</em></h3>
+          <dl class="card-spec">
+            <div><dt>版本</dt><dd>1.12.2（2026-04-01 构建）</dd></div>
+            <div><dt>大小</dt><dd>约 83.4 MB</dd></div>
+            <div><dt>技术</dt><dd>纯 JavaScript</dd></div>
+            <div><dt>兼容</dt><dd>全部现代浏览器</dd></div>
+          </dl>
+          <p class="card-desc">同样内容的 1.12.2，纯 JavaScript 实现，对老浏览器最友好；文件较大，首次打开比 WASM 版多等几秒。</p>
+          <a class="btn btn-primary" href="mc/1.12.2-js/" target="_blank" rel="noopener">开始游戏</a>
+        </article>
+      </div>
+    </div>
+
+    <div class="ver-group">
+      <h3>经典怀旧</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="card-tags"><span class="tag classic">经典</span><span class="tag p2p">WebRTC</span></div>
+          <h3>Eaglercraft 1.5.2 <em>最终版</em></h3>
+          <dl class="card-spec">
+            <div><dt>构建</dt><dd>22w43a（最终版）</dd></div>
+            <div><dt>大小</dt><dd>约 16.5 MB</dd></div>
+            <div><dt>联机</dt><dd>共享世界 · 点对点</dd></div>
+            <div><dt>兼容</dt><dd>全部现代浏览器</dd></div>
+          </dl>
+          <p class="card-desc">老玩家最熟悉的 1.5.2；它的联机是真正的 WebRTC 点对点直连，通过「共享世界」分享码和好友开黑。</p>
+          <a class="btn btn-primary" href="mc/1.5.2/" target="_blank" rel="noopener">开始游戏</a>
+        </article>
+
+        <article class="card">
+          <div class="card-tags"><span class="tag beta">远古版本</span></div>
+          <h3>Eaglercraft Beta 1.3 <em>2011 原味</em></h3>
+          <dl class="card-spec">
+            <div><dt>构建</dt><dd>22w22b</dd></div>
+            <div><dt>大小</dt><dd>约 4.6 MB</dd></div>
+            <div><dt>内容</dt><dd>Beta 1.3（2011 年）</dd></div>
+            <div><dt>兼容</dt><dd>全部现代浏览器</dd></div>
+          </dl>
+          <p class="card-desc">回到 2011 年：没有冲刺、没有饥饿值、没有末影人的年代，体积极小、情怀拉满。</p>
+          <a class="btn btn-primary" href="mc/beta1.3/" target="_blank" rel="noopener">开始游戏</a>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="multiplayer" class="section section-alt">
+  <div class="wrap">
+    <h2 class="section-title">和朋友一起联机</h2>
+    <p class="section-sub">客户端自带联机能力：局域网分享码（点对点）+ WebSocket 服务器，两种方式都能用（客户端为英文原版界面，教程里已对照标注）</p>
+    <ol class="steps-big">
+      <li>
+        <b>房主开放局域网</b>
+        <p>进入世界后按 <code>Esc</code> →「对局域网开放」（Open to LAN）→ 选择中继服务器 → 客户端生成一串<b>分享码</b>，复制发给好友。</p>
+      </li>
+      <li>
+        <b>好友输入分享码</b>
+        <p>好友打开同一版本客户端 → 多人游戏（Multiplayer）→「加入局域网世界」（Join LAN World）→ 粘贴分享码，几秒后进入同一个世界。</p>
+      </li>
+      <li>
+        <b>建立点对点连接</b>
+        <p>客户端通过中继服务器交换连接信息后转为 WebRTC 点对点传输；房主退出则世界关闭。</p>
+      </li>
+    </ol>
+    <div class="mp-notes">
+      <div class="mp-note">
+        <h4>关于「中继服务器」</h4>
+        <p>中继只负责牵线（信令），游戏数据是两端直接传输的。本站已在客户端里预置 4 个中继，默认优先国内公益节点 <code>wss://relay.mcjs.link</code>（由 MCJS 提供，请勿滥用）；连不上时，在游戏内的联机界面切换到列表里的其它中继即可。</p>
+      </div>
+      <div class="mp-note">
+        <h4>连不上怎么办？</h4>
+        <p>① 优先换中继服务器再试；② 校园网 / 部分公司网络会限制 WebRTC 的 UDP 流量，换个网络或开手机热点最有效；③ 确认双方用的是<b>同一版本</b>客户端；④ 也可以直接玩服务器：多人游戏 →「添加服务器」填 <code>ws://</code> 或 <code>wss://</code> 地址。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="section">
+  <div class="wrap">
+    <h2 class="section-title">为什么值得玩</h2>
+    <div class="feature-grid">
+      <div class="feature"><b>🧱</b><h3>原汁原味</h3><p>官方 Eaglercraft 构建，不是仿制：原版地形生成、合成、生物与红石。</p></div>
+      <div class="feature"><b>🏃</b><h3>打开即玩</h3><p>无需安装启动器、无需注册账号，点开就能进主菜单。</p></div>
+      <div class="feature"><b>👥</b><h3>双模式联机</h3><p>局域网分享码（1.5.2 为 WebRTC 点对点）+ 公共服务器。</p></div>
+      <div class="feature"><b>💾</b><h3>存档本地化</h3><p>世界保存在浏览器 IndexedDB 里，支持在客户端内导入 / 导出。</p></div>
+      <div class="feature"><b>🖥️</b><h3>跨平台</h3><p>Windows / macOS / Linux / 平板的现代浏览器都能玩。</p></div>
+      <div class="feature"><b>🔒</b><h3>隐私友好</h3><p>纯静态本地服务器，不收集任何数据；联机数据点对点传输。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="section section-alt">
+  <div class="wrap narrow">
+    <h2 class="section-title">常见问题</h2>
+    <details class="faq" open>
+      <summary>这是官方《我的世界》吗？</summary>
+      <p>Eaglercraft 是社区开源项目：把 Java 版《我的世界》客户端编译成浏览器能运行的形式，并复刻了原版的玩法与界面。它不是 Mojang / 微软的官方产品，本站与 Mojang、微软没有任何关联，仅供学习交流，请支持正版游戏。</p>
+    </details>
+    <details class="faq">
+      <summary>JavaScript 版和 WASM 版有什么区别？</summary>
+      <p>两者玩法完全一样。JavaScript 版兼容所有浏览器但文件更大；WASM-GC 版用 WebAssembly 重新编译，加载更快、运行更流畅，但需要较新的 Chrome / Edge（119+）。拿不准就用 JavaScript 版。</p>
+    </details>
+    <details class="faq">
+      <summary>界面是英文的？</summary>
+      <p>本站用的是 Eaglercraft 官方原版构建，界面为英文（官方版不带中文语言包）。本页教程已把联机相关的关键按钮对照标注；合成、物品等术语与中文版一一对应，基本不影响游玩。</p>
+    </details>
+    <details class="faq">
+      <summary>打开后黑屏或一直在加载？</summary>
+      <p>首先确认用最新版 Chrome / Edge；客户端文件有 16–83 MB，第一次加载需要等几秒到十几秒，加载完成后浏览器会缓存。如果中途切换过标签页，回来时可能看到「按任意键 / 点击继续」（Press any key / Click to focus）提示，点一下页面即可继续。1.12.2 版本第一次打开如出现语言列表，点选 English 即可。WASM 版如果打不开，说明浏览器版本太旧，改用 JavaScript 版即可。</p>
+    </details>
+    <details class="faq">
+      <summary>联机连不上怎么办？</summary>
+      <p>见「联机教程」里的说明：优先更换中继服务器；避开对 UDP 限制严格的网络（校园网、部分公司网络）；确认双方版本一致。1.5.2 版本的「共享世界」也可以同一台电脑开两个浏览器（普通 + 隐身窗口）自测联机流程。</p>
+    </details>
+    <details class="faq">
+      <summary>存档会丢吗？怎么备份？</summary>
+      <p>世界保存在浏览器本地，清理浏览器数据会一并删除。重要世界请在客户端里导出保存（EaglercraftX：主菜单 → 备份 / 导出世界），换设备时再导入。</p>
+    </details>
+    <details class="faq">
+      <summary>手机上能玩吗？</summary>
+      <p>能打开，但《我的世界》本来是为键盘鼠标设计的，触屏操作体验有限。建议在电脑上玩；平板上可以简单建造和探索。</p>
+    </details>
+    <details class="faq">
+      <summary>这些客户端文件是从哪里来的？</summary>
+      <p>全部为 Eaglercraft 官方 / 社区公开发行的离线客户端构建（lax1dude 官方发行版及社区镜像仓库），已下载到本地服务器托管，打开本站不依赖任何外部网络。</p>
+    </details>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-title">方块世界 · 网页版 MC 整合站</p>
+      <p class="footer-note">纯静态本地服务器 · 不收集任何用户信息 · 联机数据点对点传输</p>
+    </div>
+    <div class="footer-links">
+      <a href="#versions">游戏版本</a>
+      <a href="#multiplayer">联机教程</a>
+      <a href="#faq">常见问题</a>
+    </div>
+  </div>
+  <div class="wrap footer-fine">
+    <p>本站与 Minecraft（我的世界）、Mojang、微软没有任何从属关系；客户端采用 Eaglercraft 社区项目构建，仅供学习交流，请支持正版游戏。Eaglercraft 项目：lax1dude 及社区贡献者；构建文件来源：官方发行版与社区镜像仓库。</p>
+  </div>
+</footer>
+
+<script src="assets/js/portal.js"></script>
+</body>
+</html>

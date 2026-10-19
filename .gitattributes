@@ -1,0 +1,17 @@
+# 默认交给 Git 判断文本/二进制
+* text=auto
+
+# Windows 批处理保留 CRLF，其余源码统一 LF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.py  text eol=lf
+*.md  text eol=lf
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+
+# Eaglercraft 客户端是第三方原样构建（单文件 HTML，最大 79.5 MiB）。
+# 禁止换行转换 / 文本 diff / 合并，保证提交后的字节与上游 SHA-1 一致，
+# 同时避免 Git 对超大单行文件做文本处理导致内存暴涨。
+mc/** -text -diff -merge
+vendor/** -text -diff

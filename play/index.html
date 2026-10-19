@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>方块世界 · 网页版（内置 P2P 联机）</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%235fae3c'/><rect y='10' width='16' height='6' fill='%238a6544'/></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- ==================== 游戏内 HUD ==================== -->
+<div id="hud" class="hidden">
+  <div id="crosshair"></div>
+  <div id="chat-log"></div>
+  <div id="chat-input-wrap" class="hidden">
+    <input id="chat-input" maxlength="120" placeholder="说点什么，回车发送…" autocomplete="off">
+  </div>
+  <div id="hotbar"></div>
+  <div id="debug" class="hidden"></div>
+  <div id="players-panel" class="hidden"></div>
+  <div id="toasts"></div>
+  <div id="net-badge" class="hidden"></div>
+</div>
+
+<!-- ==================== 主菜单 ==================== -->
+<div id="overlay-menu" class="overlay">
+  <div class="menu-panel">
+    <h1 class="game-logo">方块世界<span>网页版</span></h1>
+    <p class="menu-sub">BlockWorld · 无需下载 · 内置 P2P 联机</p>
+    <div class="menu-grid">
+      <div class="menu-col">
+        <button id="btn-single" class="mc-btn big primary">开始单人游戏</button>
+        <button id="btn-continue" class="mc-btn hidden">继续上次存档</button>
+        <p id="btn-continue-info" class="save-info"></p>
+        <button id="btn-multi" class="mc-btn big">多人联机（P2P）</button>
+        <button id="btn-settings" class="mc-btn">游戏设置</button>
+        <button id="btn-help" class="mc-btn">操作说明</button>
+      </div>
+      <div class="menu-col profile">
+        <label for="input-name">昵称</label>
+        <input id="input-name" maxlength="12" placeholder="你的名字">
+        <label for="input-hue">角色颜色</label>
+        <input id="input-hue" type="range" min="0" max="360" value="210">
+        <div class="hue-preview"><span id="hue-dot"></span></div>
+        <label for="input-seed">世界种子（留空随机）</label>
+        <input id="input-seed" maxlength="24" placeholder="例如：hello">
+      </div>
+    </div>
+    <p class="menu-foot">纯网页运行 · 存档保存在你的浏览器里 · 联机为点对点直连</p>
+  </div>
+</div>
+
+<!-- ==================== 多人联机 ==================== -->
+<div id="overlay-multi" class="overlay hidden">
+  <div class="menu-panel wide">
+    <h2 class="panel-title">多人联机（P2P 直连）</h2>
+    <div id="multi-tabs" class="tabs">
+      <button class="tab active" data-tab="create">创建房间</button>
+      <button class="tab" data-tab="join">加入房间</button>
+      <button class="tab" data-tab="direct">无服务器直连</button>
+    </div>
+
+    <div class="tab-page" data-page="create">
+      <ol class="steps">
+        <li>点击「生成房间码」，把 5 位房间码发给好友</li>
+        <li>好友在「加入房间」中输入房间码</li>
+        <li>一起建造！所有人都能实时看到改动</li>
+      </ol>
+      <div id="room-code" class="room-code">— — — — —</div>
+      <div class="row">
+        <button id="btn-create-room" class="mc-btn">生成房间码</button>
+        <button id="btn-copy-code" class="mc-btn small hidden">复制房间码</button>
+      </div>
+      <div id="host-status" class="status"></div>
+      <div id="host-players" class="player-chips"></div>
+      <details class="adv">
+        <summary>高级：使用自建信令服务器（可选）</summary>
+        <input id="input-server" placeholder="例如 my-peer.example.com:443">
+        <p class="hint">默认使用公共 PeerJS 信令服务器。若被网络拦截，可自建或改用「无服务器直连」。</p>
+      </details>
+      <div class="row"><button id="btn-host-enter" class="mc-btn big primary hidden">进入世界（好友可随时加入）</button></div>
+    </div>
+
+    <div class="tab-page hidden" data-page="join">
+      <p>输入好友发来的房间码：</p>
+      <input id="input-join-code" class="code-input" maxlength="8" placeholder="如 K7M3Q" autocomplete="off">
+      <div class="row"><button id="btn-join-room" class="mc-btn big primary">加入房间</button></div>
+      <div id="join-status" class="status"></div>
+    </div>
+
+    <div class="tab-page hidden" data-page="direct">
+      <p class="hint">双方网络都无法访问公共信令服务器时，用「复制粘贴」方式建立直连——不需要任何中转服务器。</p>
+      <div class="direct-block">
+        <h3>A · 我来创建</h3>
+        <button id="btn-direct-create" class="mc-btn">生成邀请码</button>
+        <textarea id="direct-offer" readonly placeholder="邀请码会出现在这里，复制发给好友…"></textarea>
+        <button id="btn-copy-offer" class="mc-btn small hidden">复制邀请码</button>
+        <textarea id="direct-answer" placeholder="把好友回传的应答码粘贴到这里…"></textarea>
+        <button id="btn-direct-accept" class="mc-btn">连接好友</button>
+      </div>
+      <div class="direct-block">
+        <h3>B · 我加入别人</h3>
+        <textarea id="direct-input" placeholder="把好友发来的邀请码粘贴到这里…"></textarea>
+        <button id="btn-direct-join" class="mc-btn">生成应答码</button>
+        <textarea id="direct-output" readonly class="hidden" placeholder="把这里的应答码发回给好友…"></textarea>
+        <button id="btn-copy-answer" class="mc-btn small hidden">复制应答码</button>
+      </div>
+      <div id="direct-status" class="status"></div>
+    </div>
+
+    <button id="btn-multi-back" class="mc-btn back">返回主菜单</button>
+  </div>
+</div>
+
+<!-- ==================== 设置 ==================== -->
+<div id="overlay-settings" class="overlay hidden">
+  <div class="menu-panel narrow">
+    <h2 class="panel-title">游戏设置</h2>
+    <div class="setting-row">
+      <label>鼠标灵敏度</label>
+      <input id="set-sens" type="range" min="0.4" max="2.6" step="0.1" value="1">
+      <span id="set-sens-val" class="val">1.0x</span>
+    </div>
+    <div class="setting-row">
+      <label>视野距离</label>
+      <input id="set-rd" type="range" min="0" max="10" step="1" value="0">
+      <span id="set-rd-val" class="val">跟随画质</span>
+    </div>
+    <div class="setting-row">
+      <label>音效</label>
+      <input id="set-sound" type="checkbox" checked>
+      <span class="val"></span>
+    </div>
+    <div class="row">
+      <button id="btn-fullscreen" class="mc-btn">切换全屏</button>
+      <button id="btn-settings-back" class="mc-btn primary">返回</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 操作说明 ==================== -->
+<div id="overlay-help" class="overlay hidden">
+  <div class="menu-panel narrow">
+    <h2 class="panel-title">操作说明</h2>
+    <table class="keys">
+      <tr><td>W A S D</td><td>移动</td></tr>
+      <tr><td>空格</td><td>跳跃 / 上升（飞行时）；双击空格切换飞行</td></tr>
+      <tr><td>Shift</td><td>潜行 / 下降（飞行时）</td></tr>
+      <tr><td>Ctrl</td><td>冲刺</td></tr>
+      <tr><td>鼠标左键</td><td>破坏方块（按住连续挖掘）</td></tr>
+      <tr><td>鼠标右键</td><td>放置方块</td></tr>
+      <tr><td>鼠标中键</td><td>选取指向的方块</td></tr>
+      <tr><td>1~9 / 滚轮</td><td>切换快捷栏</td></tr>
+      <tr><td>E</td><td>打开方块选择（创造栏）</td></tr>
+      <tr><td>T / 回车</td><td>聊天（联机时同步给所有人）</td></tr>
+      <tr><td>F</td><td>切换飞行</td></tr>
+      <tr><td>F5</td><td>第一 / 第三人称</td></tr>
+      <tr><td>F3</td><td>调试信息</td></tr>
+      <tr><td>Tab</td><td>查看玩家列表</td></tr>
+      <tr><td>Esc</td><td>暂停菜单</td></tr>
+    </table>
+    <p class="hint">手机 / 平板：左侧摇杆移动，右侧滑动转视角，点按屏幕挖掘，按钮可放置方块、飞行、选择方块。</p>
+    <button id="btn-help-back" class="mc-btn primary">返回</button>
+  </div>
+</div>
+
+<!-- ==================== 暂停 ==================== -->
+<div id="overlay-pause" class="overlay hidden">
+  <div class="menu-panel narrow">
+    <h2 class="panel-title">游戏暂停</h2>
+    <p id="pause-info" class="pause-info"></p>
+    <button id="btn-pause-resume" class="mc-btn big primary">返回游戏</button>
+    <button id="btn-pause-copy" class="mc-btn hidden">复制房间码</button>
+    <button id="btn-pause-settings" class="mc-btn">设置</button>
+    <button id="btn-pause-export" class="mc-btn">导出存档（JSON）</button>
+    <button id="btn-pause-import" class="mc-btn">导入存档</button>
+    <input type="file" id="file-import" accept=".json,application/json" hidden>
+    <button id="btn-pause-leave" class="mc-btn danger">离开世界（回主菜单）</button>
+  </div>
+</div>
+
+<!-- ==================== 加载 ==================== -->
+<div id="overlay-loading" class="overlay hidden">
+  <div class="loading-box">
+    <div class="blocks-spinner"><i></i><i></i><i></i></div>
+    <p id="loading-text">正在生成世界…</p>
+    <div class="progress"><div id="loading-bar"></div></div>
+    <p class="hint">首次生成需要几秒钟</p>
+  </div>
+</div>
+
+<!-- ==================== 方块选择 ==================== -->
+<div id="overlay-palette" class="overlay hidden">
+  <div class="menu-panel wide">
+    <h2 class="panel-title">选择方块</h2>
+    <div id="palette-grid"></div>
+    <p class="hint">点击方块放入当前快捷栏槽位 · 按 E 或 Esc 关闭</p>
+  </div>
+</div>
+
+<!-- ==================== 触屏控件 ==================== -->
+<div id="touch" class="hidden">
+  <div id="joy"><div id="joy-knob"></div></div>
+  <div class="touch-btns">
+    <button class="tbtn" id="t-sneak">潜行</button>
+    <button class="tbtn" id="t-place">放置</button>
+    <button class="tbtn" id="t-palette">方块</button>
+    <button class="tbtn" id="t-fly">飞行</button>
+    <button class="tbtn jump" id="t-jump">跳跃</button>
+  </div>
+</div>
+
+<div id="fatal" class="hidden"></div>
+
+<!-- ==================== 脚本 ==================== -->
+<script src="../vendor/three.min.js"></script>
+<script src="../vendor/peerjs.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/noise.js"></script>
+<script src="js/blocks.js"></script>
+<script src="js/textures.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/world.js"></script>
+<script src="js/player.js"></script>
+<script src="js/remote.js"></script>
+<script src="js/net.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+MIT License
+
+Copyright (c) 2026 方块世界 / WebMC contributors
+
+适用范围（Scope）
+----------------
+本许可证适用于本仓库中的原创代码与文档，包括但不限于：
+  index.html、assets/、play/、serve.py、start.bat、README.md
+
+明确排除（Excluded）
+------------------
+1. mc/ 目录下的 Eaglercraft 客户端构建文件。其版权归 lax1dude 及
+   Eaglercraft 社区贡献者所有，按上游项目各自的许可证分发；本仓库
+   仅做原样托管，未修改其核心代码。
+2. vendor/ 目录下的 three.js 与 PeerJS。版权归各自作者所有，
+   按 MIT 许可证分发。
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
