@@ -36,13 +36,16 @@
 └─ push-to-github.bat    双击推送（绕过网页 25 MB 上传限制）
 ```
 
-## 联机（局域网分享码）
+## 联机（共享世界 / 分享码）
 
-Eaglercraft 的「局域网联机」原理：通过 **WebSocket 中继服务器**交换连接信息，之后转为 **WebRTC 点对点**传输（1.5.2 起即为该机制）。
+Eaglercraft 的联机原理：客户端通过 **WebSocket 中继服务器**交换连接信息（信令），之后转为 **WebRTC 点对点**传输，游戏数据不经过中继。
 
-1. 房主：进入世界 → 按 `Esc` →「对局域网开放 / Open to LAN」→ 选择中继 → 拿到一串**分享码**，发给朋友。
-2. 好友：打开**同一版本**客户端 → 多人游戏 →「加入局域网世界 / Join LAN World」→ 粘贴分享码。
-3. 房主退出 = 世界关闭。界面为英文原版，教程里已对照标注按钮名称。
+1. **房主**：进入世界 → 按 `Esc` →「邀请 / Invite」→「开始共享世界 / Start Shared World」→ 选择中继 → 拿到一串**分享码**，发给朋友。
+   - 1.5.2 的入口叫「共享世界 / Share World」；1.12.2 部分构建叫「对局域网开放 / Open to LAN」。
+2. **好友**：打开**同一版本**客户端 → 多人游戏 →「直接连接 / Direct Connect」→「加入共享世界 / Join Shared World」→ 粘贴分享码 →「加入世界 / Join World」。
+   - EaglercraftX 1.8.8 已将 LAN Worlds 改名为 Shared Worlds，**界面上没有 “Join LAN World” 按钮**，不要去找它。
+3. 房主退出 = 世界关闭。分享码等同于门钥匙，拿到的人都能进来。
+4. 连不上时，先确认双方的 **Network Settings** 里中继列表一致，再逐个切换中继。
 
 **中继服务器**：本站已在客户端里预置 4 个中继，默认优先国内公益节点 `wss://relay.mcjs.link`（由 MCJS 提供，请勿滥用），
 其后依次是 lax1dude / ayunami 的官方中继（`relay.deev.is`、`relay.lax1dude.net`、`relay.shhnowisnottheti.me`）。
