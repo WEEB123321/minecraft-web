@@ -32,7 +32,8 @@
 ├─ .nojekyll             GitHub Pages 关闭 Jekyll（必需，见下文）
 ├─ .gitattributes        禁止对大文件做换行转换 / 文本 diff
 ├─ .gitignore            忽略本地环境与临时文件
-└─ LICENSE               MIT（仅覆盖原创代码，不含 mc/ 客户端）
+├─ LICENSE               MIT（仅覆盖原创代码，不含 mc/ 客户端）
+└─ push-to-github.bat    双击推送（绕过网页 25 MB 上传限制）
 ```
 
 ## 联机（局域网分享码）
@@ -75,6 +76,15 @@ Eaglercraft 的「局域网联机」原理：通过 **WebSocket 中继服务器*
 | 仓库建议体积 | < 1 GB | 172 MB | 通过 |
 
 **不要使用 Git LFS。** GitHub Pages 不提供 LFS 对象，只会返回指针文件，站点直接 404；且免费额度为 1 GB 存储 / 1 GB 月流量，一次完整克隆就会耗尽。
+
+### 为什么网页上传会失败
+
+GitHub 网页的 **Add file → Upload files** 单文件上限是 **25 MB**，这是服务端硬限制，与仓库设置无关，也无法通过修改代码规避。本站 6 个客户端中有 5 个超过该限制（最大 79.5 MiB），因此**网页上传这条路对本项目不可用**。
+
+绕过方式只有用 Git 客户端推送——Git 协议本身允许单文件到 100 MB，79.5 MiB 在范围内：
+
+- **命令行（推荐）**：双击本目录的 `push-to-github.bat`，按提示输入 GitHub 用户名和仓库名，脚本自动完成 remote 配置与推送。
+- **图形界面**：安装 GitHub Desktop，Clone 空仓库后把本目录文件复制进去，Commit 后 Push。
 
 ### 首次推送
 
